@@ -1,4 +1,12 @@
-import { Elysia } from 'elysia';
-import { remix } from 'elysia-remix';
+import { createRequestHandler, type ServerBuild } from '@remix-run/node';
+import * as build from 'build/server';
 
-new Elysia().use(await remix()).listen(3000, console.log);
+const handler = createRequestHandler(build as unknown as ServerBuild);
+
+Bun.serve({
+  async fetch(request) {
+    const pathname = new URL(request.url).pathname;
+    const file = Bun.file(`build/client${pathname}`);
+    return (await file.exists()) ? new Response(file) : handler(request);
+  },
+});

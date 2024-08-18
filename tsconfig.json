@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["@types/bun", "vite/client", "@remix-run/react/future/single-fetch.d.ts"],
+    "types": ["@types/bun", "@remix-run/react/future/single-fetch.d.ts"],
     // Enable latest features
     "lib": ["ESNext"],
     "target": "ESNext",

@@ -1,7 +1,7 @@
-import { redirect, unstable_defineAction as defineAction } from '@remix-run/node';
-import { deletePizza } from '~/libs/api';
+import { redirect, type ActionFunctionArgs } from '@remix-run/node';
+import { deletePost } from '~/libs/api';
 
-export const action = defineAction( async ({ params }) => {
-	await deletePizza(Number.parseInt(params.id ?? ''));
-	return redirect('/pizzas');
-});
+export const action = async ({ params }: ActionFunctionArgs) => {
+  await deletePost(Number.parseInt(params.id ?? ''));
+  return redirect('/posts');
+};

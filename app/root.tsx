@@ -7,6 +7,7 @@ import {
 } from '@remix-run/react';
 
 import '~/tailwind.css'
+// import 'virtual:uno.css'
 
 export default function App() {
 	return (
