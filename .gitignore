@@ -1,3 +1,4 @@
-/node_modules
-/build
-bun.lockb
+/node_modules/
+/build/
+/drizzle/
+/bun.lockb
