@@ -1,14 +1,13 @@
 {
-  "name": "app",
+  "name": "elysia-remix-demo",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "bunx --bun remix vite:dev",
     "build": "remix vite:build",
-    "start": "NODE_ENV=production bun server.ts"
+    "start": "bun run server.ts"
   },
   "dependencies": {
-    "@prisma/client": "^5.18.0",
     "@remix-run/node": "^2.11.1",
     "@remix-run/react": "^2.11.1",
     "elysia": "^1.1.5",
@@ -18,13 +17,11 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.8.3",
     "@remix-run/dev": "^2.11.1",
     "@types/bun": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "daisyui": "^4.12.10",
-    "prisma": "^5.18.0",
     "tailwindcss": "^3.4.9",
     "vite": "latest",
     "vite-tsconfig-paths": "latest"

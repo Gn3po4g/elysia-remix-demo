@@ -1,18 +1,21 @@
 import { unstable_defineLoader as defineLoader } from '@remix-run/node';
 import { Await, Form, Link, NavLink, Outlet, useLoaderData, useSubmit } from '@remix-run/react';
 import { Suspense } from 'react';
-import { getAllPosts } from '~/libs/api';
+import db, { schema } from 'db';
+import { like } from 'drizzle-orm';
 
 export const loader = defineLoader(async ({ request }) => {
   const url = new URL(request.url);
   const q = url.searchParams.get('q');
-  const posts = await getAllPosts(q);
-
-  return { posts, q };
+  const users = await db
+    .select()
+    .from(schema.user)
+    .where(like(schema.user.name, `%${q ?? ''}%`));
+  return { users, q };
 });
 
 export default function Index() {
-  const { posts, q } = useLoaderData<typeof loader>();
+  const { users, q } = useLoaderData<typeof loader>();
   const submit = useSubmit();
 
   return (
@@ -48,17 +51,17 @@ export default function Index() {
           </div>
           <ul className='menu'>
             <Suspense fallback={<span className='loading loading-dots loading-sm mx-auto' />}>
-              <Await resolve={posts}>
-                {posts =>
-                  posts.map(post => (
-                    <li key={post.id}>
+              <Await resolve={users}>
+                {users =>
+                  users.map(user => (
+                    <li key={user.id}>
                       <NavLink
                         to={{
-                          pathname: `${post.id}`,
+                          pathname: `${user.id}`,
                           search: `?q=${q || ''}`,
                         }}
                       >
-                        {post.title}
+                        {user.name}
                       </NavLink>
                     </li>
                   ))

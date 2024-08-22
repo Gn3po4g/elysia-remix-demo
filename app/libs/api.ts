@@ -1,5 +1,5 @@
-import { PrismaClient, type Post } from '@prisma/client';
-export type { Post } from '@prisma/client';
+import { PrismaClient, type Prisma } from '@prisma/client';
+export { Prisma } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -23,7 +23,7 @@ export const getPost = (id: number) =>
     })
     .then();
 
-export const addPost = (post: Post) =>
+export const addPost = (post: Prisma.PostCreateInput) =>
   prisma.post
     .create({
       data: post,

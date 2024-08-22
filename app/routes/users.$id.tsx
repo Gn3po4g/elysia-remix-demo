@@ -1,10 +1,15 @@
 import { unstable_defineLoader as defineLoader } from '@remix-run/node';
 import { Await, Form, useLoaderData } from '@remix-run/react';
+import db, { schema } from 'db';
+import { eq } from 'drizzle-orm';
 import { Suspense } from 'react';
-import { getPost } from '~/libs/api';
 
 export const loader = defineLoader(async ({ params }) => {
-  const post = getPost(Number.parseInt(params.id ?? ''));
+  const post = db
+    .select()
+    .from(schema.user)
+    .where(eq(schema.user.id, Number.parseInt(params.id!)))
+    .then(p => p[0]);
 
   return { post };
 });
@@ -17,8 +22,8 @@ export default function Page() {
         {post =>
           post && (
             <div>
-              <p>{post.title}</p>
-              <p>{post.body}</p>
+              <p>{post.name}</p>
+              <p>{post.email}</p>
               <Form
                 action='delete'
                 method='post'
